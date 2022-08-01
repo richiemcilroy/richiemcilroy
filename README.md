@@ -5,8 +5,7 @@ Founder & Software Engineer
 ---------------------------
 
 * 🌍  I'm based in Liverpool, United Kingdom
-* 🚀  I'm currently working on [SEOCopy.ai](http://www.seocopy.ai)
-* 🤝  I'm open to collaborating on interesting open source projects
+* 🚀  I'm currently working on [Reflio](https://reflio.com)
 * ✉️  You can contact me at [richie@mcilroy.co](mailto:richie@mcilroy.co)
 
 ### Socials
