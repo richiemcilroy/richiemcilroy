@@ -5,9 +5,7 @@ Founder & Software Engineer
 ---------------------------
 
 * 🌍  I'm based in Liverpool, United Kingdom
-* 🚀  I'm currently working on [Reflio](https://reflio.com)
-* ✉️  You can contact me at [richie@mcilroy.co](mailto:richie@mcilroy.co)
-
+* 
 ### Socials
 
 <p align="left">
