@@ -18,18 +18,17 @@ function ImageGrid({
 }) {
   const gridCols =
     cols === 3 ? "sm:grid-cols-3" : cols === 2 ? "sm:grid-cols-2" : "";
-  return <div className={`grid grid-cols-1 ${gridCols} gap-4 not-prose my-8`}>{children}</div>;
+  return (
+    <div className={`grid grid-cols-1 ${gridCols} gap-4 not-prose my-8`}>
+      {children}
+    </div>
+  );
 }
 
 function Img({ src, alt }: { src: string; alt?: string }) {
   return (
-    <div className="relative aspect-[4/3] max-h-[350px] sm:max-h-none overflow-hidden rounded-lg">
-      <Image
-        src={src}
-        alt={alt || ""}
-        fill
-        className="object-cover"
-      />
+    <div className="relative aspect-[4/4] max-h-[450px] overflow-hidden rounded-lg">
+      <Image src={src} alt={alt || ""} fill className="object-cover" />
     </div>
   );
 }
@@ -68,6 +67,17 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${post.title} - Richie McIlroy`,
     description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      url: `/posts/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 

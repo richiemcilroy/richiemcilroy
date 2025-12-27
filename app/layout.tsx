@@ -19,6 +19,30 @@ export const metadata: Metadata = {
   title: "Richie McIlroy",
   description: "Personal website and writings",
   metadataBase: new URL("https://richiemcilroy.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
+  appleWebApp: {
+    title: "Richie McIlroy",
+  },
+  openGraph: {
+    title: "Richie McIlroy",
+    description: "Personal website and writings",
+    url: "https://richiemcilroy.com",
+    siteName: "Richie McIlroy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Richie McIlroy",
+    description: "Personal website and writings",
+  },
 };
 
 export default function RootLayout({

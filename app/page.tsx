@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
+import Image from "next/image";
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -15,6 +16,15 @@ export default function Home() {
   return (
     <div className="space-y-16">
       <header className="space-y-6">
+        <div>
+          <Image
+            src="/richie-beach.jpg"
+            alt="Richie at the beach"
+            width={500}
+            height={500}
+            className="w-28 h-28 rounded-full object-cover"
+          />
+        </div>
         <h1 className="text-xl font-medium text-zinc-900 dark:text-white">
           Hey, I'm Richie.
         </h1>
@@ -74,7 +84,7 @@ export default function Home() {
                   href={`/posts/${post.slug}`}
                   className="group block space-y-1"
                 >
-                  <h3 className="text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+                  <h3 className="text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors underline decoration-dotted">
                     {post.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-500">
