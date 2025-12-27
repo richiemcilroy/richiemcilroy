@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "./button";
 
 export function Header() {
   const pathname = usePathname();
@@ -11,12 +11,9 @@ export function Header() {
 
   return (
     <header className="mb-12">
-      <Link
-        href="/"
-        className="text-sm text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
-      >
+      <Button href="/" variant="dark" className="rounded-full">
         ← Back
-      </Link>
+      </Button>
     </header>
   );
 }

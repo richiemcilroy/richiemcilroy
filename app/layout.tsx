@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen`}
       >
         <ThemeProvider>
-          <main className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+          <main className="mx-auto max-w-4xl px-6 py-16">
             <Header />
             <PageTransitionProvider>{children}</PageTransitionProvider>
           </main>

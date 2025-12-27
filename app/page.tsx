@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <div className="space-y-16">
       <header className="space-y-6">
-        <h1 className="text-lg font-medium text-zinc-900 dark:text-white">
+        <h1 className="text-xl font-medium text-zinc-900 dark:text-white">
           Hey, I'm Richie.
         </h1>
-        <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        <p className="text-lg text-zinc-600 dark:text-zinc-400">
           I'm the solo founder of
           <Link href="https://cap.so" target="_blank">
             <img
@@ -27,33 +27,39 @@ export default function Home() {
               className="w-[65px] h-auto inline-block align-middle ml-2 mr-1.5 -mt-[3px]"
             />
           </Link>
-          and I've been coding for over 10 years. My goal is to make the world's
-          greatest screen recording and sharing app.
+          and I've been coding for over 10 years. I believe in empathy, both in
+          code and in life. I believe in shipping fast and learning from real
+          users. I love my fiancée, family, friends and our small French Bulldog
+          Xara.
         </p>
-        <nav className="flex gap-4 text-sm">
+        <p className="text-lg text-zinc-600 dark:text-zinc-400">
+          You can follow me on{" "}
           <a
             href="https://x.com/riaborr"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+            className="text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
           >
             X
           </a>
+          , see my code on{" "}
           <a
             href="https://github.com/richiemcilroy"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+            className="text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
           >
             GitHub
           </a>
+          , or{" "}
           <a
             href="mailto:richie@cap.so"
-            className="text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+            className="text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
           >
-            Email
+            email me
           </a>
-        </nav>
+          .
+        </p>
       </header>
 
       {posts.length > 0 && (
