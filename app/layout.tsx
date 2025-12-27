@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./components/theme-provider";
 import { PageTransitionProvider } from "./components/page-transition";
 import { Header } from "./components/header";
@@ -61,6 +62,7 @@ export default function RootLayout({
             <PageTransitionProvider>{children}</PageTransitionProvider>
           </main>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
