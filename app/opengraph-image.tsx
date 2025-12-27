@@ -56,9 +56,9 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {particles.map((p, i) => (
+        {particles.map((p) => (
           <div
-            key={i}
+            key={`particle-${p.x}-${p.y}-${p.size}`}
             style={{
               position: "absolute",
               left: p.x,
