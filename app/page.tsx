@@ -20,8 +20,9 @@ export default function Home() {
           <Image
             src="/richie-beach.jpg"
             alt="Richie at the beach"
-            width={500}
-            height={500}
+            width={112}
+            height={112}
+            priority
             className="w-28 h-28 rounded-full object-cover"
           />
         </div>
@@ -31,10 +32,12 @@ export default function Home() {
         <p className="text-lg text-zinc-600 dark:text-zinc-400">
           I'm the solo founder of
           <Link href="https://cap.so" target="_blank">
-            <img
+            <Image
               src="/cap-logo.svg"
               alt="Cap"
-              className="w-[65px] h-auto inline-block align-middle ml-2 mr-1.5 -mt-[3px]"
+              width={65}
+              height={20}
+              className="inline-block align-middle ml-2 mr-1.5 -mt-[3px]"
             />
           </Link>
           and I've been coding for over 10 years. I believe in empathy, both in

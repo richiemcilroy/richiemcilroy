@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://richiemcilroy.com/sitemap.xml
