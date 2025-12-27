@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
+import { Share } from "./share";
 
 const rehypeOptions = {
   theme: "github-dark-default",
@@ -111,6 +112,8 @@ export default async function PostPage({ params }: Props) {
           }}
         />
       </div>
+
+      <Share title={post.title} slug={slug} />
     </article>
   );
 }
