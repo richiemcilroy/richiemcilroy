@@ -109,6 +109,7 @@ export default async function PostPage({ params }: Props) {
             mdxOptions: {
               rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
             },
+            blockJS: false,
           }}
         />
       </div>
