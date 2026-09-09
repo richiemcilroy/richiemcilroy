@@ -1,9 +1,15 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import {
+  absoluteUrl,
+  homeDescription,
+  homeTitle,
+  siteName,
+  siteUrl,
+} from "@/lib/site";
+import { SiteShell } from "./components/site-shell";
 import { ThemeProvider } from "./components/theme-provider";
-import { PageTransitionProvider } from "./components/page-transition";
-import { Header } from "./components/header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,9 +23,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Richie McIlroy",
-  description: "Personal website and writings",
-  metadataBase: new URL("https://richiemcilroy.com"),
+  title: homeTitle,
+  description: homeDescription,
+  metadataBase: new URL(siteUrl),
+  authors: [{ name: siteName, url: absoluteUrl("/wiki") }],
+  creator: siteName,
+  publisher: siteName,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -33,16 +53,18 @@ export const metadata: Metadata = {
     title: "Richie McIlroy",
   },
   openGraph: {
-    title: "Richie McIlroy",
-    description: "Personal website and writings",
-    url: "https://richiemcilroy.com",
-    siteName: "Richie McIlroy",
+    title: homeTitle,
+    description: homeDescription,
+    url: absoluteUrl("/"),
+    siteName,
+    locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Richie McIlroy",
-    description: "Personal website and writings",
+    creator: "@richiemcilroy",
+    title: homeTitle,
+    description: homeDescription,
   },
 };
 
@@ -57,10 +79,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen`}
       >
         <ThemeProvider>
-          <main className="mx-auto max-w-4xl px-6 py-16">
-            <Header />
-            <PageTransitionProvider>{children}</PageTransitionProvider>
-          </main>
+          <SiteShell>{children}</SiteShell>
         </ThemeProvider>
         <Analytics />
       </body>

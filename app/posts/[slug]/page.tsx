@@ -1,8 +1,12 @@
-import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
-import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
+import { StructuredData } from "@/app/components/structured-data";
+import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
+import { absoluteUrl, author, siteName } from "@/lib/site";
 import { Share } from "./share";
 
 const rehypeOptions = {
@@ -57,25 +61,33 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) {
-    return { title: "Post Not Found" };
+    notFound();
   }
 
   return {
     title: `${post.title} - Richie McIlroy`,
     description: post.description,
+    alternates: { canonical: `/posts/${slug}` },
+    authors: [{ name: siteName, url: absoluteUrl("/wiki") }],
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       url: `/posts/${slug}`,
+      siteName,
+      locale: "en_GB",
+      publishedTime: post.date || undefined,
+      modifiedTime: post.updated,
+      authors: [absoluteUrl("/wiki")],
     },
     twitter: {
       card: "summary_large_image",
+      creator: "@richiemcilroy",
       title: post.title,
       description: post.description,
     },
@@ -90,14 +102,49 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
+  const url = absoluteUrl(`/posts/${slug}`);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    url,
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date || undefined,
+    dateModified: post.updated,
+    inLanguage: "en-GB",
+    image: absoluteUrl(`/posts/${slug}/opengraph-image`),
+    author,
+    publisher: author,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    isPartOf: { "@type": "WebSite", "@id": absoluteUrl("/#website") },
+  };
+
   return (
     <article className="space-y-8">
+      <StructuredData id="article-schema" data={structuredData} />
       <header className="space-y-2">
         <h1 className="text-xl font-medium text-zinc-900 dark:text-white">
           {post.title}
         </h1>
         <p className="text-sm text-zinc-500 dark:text-zinc-500">
-          {formatDate(post.date)} · {post.readTime}
+          By{" "}
+          <Link
+            href="/wiki"
+            rel="author"
+            className="underline decoration-dotted underline-offset-4"
+          >
+            Richie McIlroy
+          </Link>{" "}
+          · <time dateTime={post.date}>{formatDate(post.date)}</time> ·{" "}
+          {post.readTime}
+          {post.updated && (
+            <>
+              {" "}
+              · Updated{" "}
+              <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+            </>
+          )}
         </p>
       </header>
 

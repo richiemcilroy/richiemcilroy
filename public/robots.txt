@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://richiemcilroy.com/sitemap.xml
+Sitemap: https://www.richiemcilroy.com/sitemap.xml

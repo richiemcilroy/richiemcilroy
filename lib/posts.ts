@@ -1,13 +1,24 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import matter from "gray-matter";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
+
+// YAML parses unquoted dates as Date objects; metadata and <time> need ISO strings.
+function normalizeDate(value: unknown): string | undefined {
+  if (value === undefined || value === null || value === "") return undefined;
+  const date = value instanceof Date ? value : new Date(String(value));
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid post date: ${String(value)}`);
+  }
+  return date.toISOString();
+}
 
 export interface PostMeta {
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   description?: string;
   readTime: string;
 }
@@ -40,7 +51,8 @@ export function getAllPosts(): PostMeta[] {
       return {
         slug,
         title: data.title || slug,
-        date: data.date || "",
+        date: normalizeDate(data.date) || "",
+        updated: normalizeDate(data.updated),
         description: data.description,
         readTime: calculateReadTime(content),
       };
@@ -66,7 +78,8 @@ export function getPostBySlug(slug: string): Post | null {
   return {
     slug,
     title: data.title || slug,
-    date: data.date || "",
+    date: normalizeDate(data.date) || "",
+    updated: normalizeDate(data.updated),
     description: data.description,
     readTime: calculateReadTime(content),
     content,

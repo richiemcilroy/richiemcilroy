@@ -1,7 +1,7 @@
 ---
 title: My story so far
 date: 2025-12-27
-description: The answer is usually out there if you keep looking.
+description: Richie McIlroy on learning to code at nine, growing up in Liverpool, building and selling software, and becoming the solo founder of Cap.
 ---
 
 I wrote my first line of code when I was nine, some HTML for a Call of Duty modding website I wanted to build. My uncle, who's a web developer, taught me how to write my first H1 tag. I remember watching the text appear on screen and thinking this was the coolest thing in the world. That feeling never really went away.

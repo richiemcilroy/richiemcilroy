@@ -1,6 +1,38 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
-import Image from "next/image";
+import {
+  absoluteUrl,
+  homeDescription,
+  homeTitle,
+  person,
+  siteName,
+} from "@/lib/site";
+import { StructuredData } from "./components/structured-data";
+
+export const metadata: Metadata = {
+  title: homeTitle,
+  description: homeDescription,
+  alternates: { canonical: "/" },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": absoluteUrl("/#website"),
+      name: siteName,
+      alternateName: "richiemcilroy.com",
+      url: absoluteUrl("/"),
+      description: homeDescription,
+      inLanguage: "en-GB",
+      publisher: { "@id": person["@id"] },
+    },
+    person,
+  ],
+};
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -15,11 +47,12 @@ export default function Home() {
 
   return (
     <div className="space-y-16">
+      <StructuredData id="website-schema" data={structuredData} />
       <header className="space-y-6">
         <div>
           <Image
             src="/richie-beach.jpg"
-            alt="Richie at the beach"
+            alt="Richie McIlroy at the beach"
             width={112}
             height={112}
             priority
@@ -33,11 +66,18 @@ export default function Home() {
           I'm the solo founder of
           <Link href="https://cap.so" target="_blank">
             <Image
+              src="/cap-logo-light.svg"
+              alt="Cap"
+              width={65}
+              height={20}
+              className="inline-block dark:hidden align-middle ml-2 mr-1.5 -mt-[3px]"
+            />
+            <Image
               src="/cap-logo.svg"
               alt="Cap"
               width={65}
               height={20}
-              className="inline-block align-middle ml-2 mr-1.5 -mt-[3px]"
+              className="hidden dark:inline-block align-middle ml-2 mr-1.5 -mt-[3px]"
             />
           </Link>
           and I've been coding for over 10 years. I believe in empathy, both in
@@ -73,6 +113,16 @@ export default function Home() {
           </a>
           .
         </p>
+        <p className="text-zinc-600 dark:text-zinc-400">
+          Read my{" "}
+          <Link
+            href="/wiki"
+            className="underline decoration-dotted underline-offset-4 hover:text-zinc-900 dark:hover:text-white"
+          >
+            biography
+          </Link>{" "}
+          for more about my background, projects, and career.
+        </p>
       </header>
 
       {posts.length > 0 && (
@@ -91,7 +141,8 @@ export default function Home() {
                     {post.title}
                   </h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-500">
-                    {post.readTime} · {formatDate(post.date)}
+                    {post.readTime} ·{" "}
+                    <time dateTime={post.date}>{formatDate(post.date)}</time>
                   </p>
                 </Link>
               </li>

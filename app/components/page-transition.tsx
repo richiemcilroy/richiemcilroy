@@ -1,16 +1,16 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
+  type ReactNode,
+  useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
   useTransition,
-  useCallback,
-  type ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
 
 interface TransitionContextValue {
   isTransitioning: boolean;
@@ -30,11 +30,15 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isEntering, setIsEntering] = useState(true);
+  // Keep the initial HTML readable even before JavaScript loads.
+  const [isEntering, setIsEntering] = useState(false);
+  const previousPathname = useRef(pathname);
   const [, startTransition] = useTransition();
 
-  // Entrance animation - unblur when page loads
+  // Animate navigation after hydration, leaving the first paint clear.
   useEffect(() => {
+    if (previousPathname.current === pathname) return;
+    previousPathname.current = pathname;
     setIsEntering(true);
     const timer = setTimeout(() => {
       setIsEntering(false);
@@ -56,7 +60,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         });
       }, 100);
     },
-    [pathname, router]
+    [pathname, router],
   );
 
   // Intercept all internal link clicks

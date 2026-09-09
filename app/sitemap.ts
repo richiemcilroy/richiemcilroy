@@ -1,23 +1,29 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
+import { absoluteUrl, homeUpdated, wikiUpdated } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://richiemcilroy.com";
   const posts = getAllPosts();
 
   const postUrls = posts.map((post) => ({
-    url: `${baseUrl}/posts/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
+    url: absoluteUrl(`/posts/${post.slug}`),
+    lastModified: post.updated || post.date || undefined,
   }));
 
   return [
     {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
+      url: absoluteUrl("/"),
+      lastModified: [
+        homeUpdated,
+        ...posts.map((post) => post.updated || post.date),
+      ]
+        .filter(Boolean)
+        .sort()
+        .at(-1),
+    },
+    {
+      url: absoluteUrl("/wiki"),
+      lastModified: wikiUpdated,
     },
     ...postUrls,
   ];
