@@ -7,7 +7,8 @@ import { PageTransitionProvider } from "./page-transition";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/wiki") return children;
+  // The home page and the Wiki each own their full-bleed layout.
+  if (pathname === "/" || pathname === "/wiki") return children;
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
